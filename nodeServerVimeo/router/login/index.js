@@ -16,13 +16,13 @@ var connection = mysql.createConnection({
 });
 connection.connect();
 
-//localhost:3000/join
+//localhost:3000/login
 router.get('/', function(req,res){
-  //res.sendFile(path.join(__dirname,'../../public/join.html'));
+  //res.sendFile(path.login(__dirname,'../../public/login.html'));
   var msg;
   var errMsg = req.flash('error');//오류메시지
   if(errMsg) msg = errMsg;
-  res.render('join.ejs', {'message' : msg});// ejs템플릿 routing
+  res.render('login.ejs', {'message' : msg});// ejs템플릿 routing
 });
 
 //session 처리
@@ -37,35 +37,38 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-passport.use('local-join', new LocalStrategy({
-    usernameField: 'email',   //join.ejs -> form-input -> name값
+passport.use('local-login', new LocalStrategy({
+    usernameField: 'email',   //login.ejs -> form-input -> name값
     passwordField: 'password',
     passReqToCallback : true
   }, function(req,email,password,done){
     var query = connection.query('select * from user where email=?',[email],function(err,rows){
       if(err) return done(err);
 
-      if(rows.length){//db -> email 중복
-        console.log('existed user');
-        return done(null,false,{message : 'your email is already used'});
+      if(rows.length){//login 성공
+        return done(null,{'email' : email , 'id' : rows[0].UID});
       } else{
-        var sql = {email : email, pw : password};// db : 값
-        var query = connection.query('insert into user set ?',sql,function(err,rows){
-          if(err) throw err;
-          return done(null,{'email' : email , 'id' : rows.insertId});
-        });
+        return done(null, false, {'message' : 'your login info is not found'});
       }
     });
   }
 ));
 
-//  localhost:3000/join -> post
-router.post('/',
-passport.authenticate('local-join',
-                                { successRedirect: '/main',
-                                 failureRedirect: '/join',
-                                 failureFlash: true })
-);
+// localhost:3000/login -> post
+// Custom Callback - json
+router.post('/', function(req,res,next){
+  passport.authenticate('local-login', function(err,user,info){
+    if(err) res.status(500).json(err);
+    if (!user) return res.status(401).json(info.message);//추가메시지
+
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.json(user);
+    });
+
+  })(req, res, next);//authenticate의 추가 인자
+});
+
 
 // router.post('/', function(req,res){
 //   var body = req.body;

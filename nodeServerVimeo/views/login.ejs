@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>login form</title>
+  </head>
+  <body>
+    <form action="/email/form" method="post">
+      email : <input type="text" name="email"><br/>
+      password : <input type="password" name="password"><br/>
+    </form>
+
+    <button class="ajaxsend">login</button> <!-- 버튼 누르면 login -->
+
+    <div class="result"></div>
+
+    <script>
+        document.querySelector('.ajaxsend').addEventListener('click',
+            function(){
+            var email = document.getElementsByName('email')[0].value; //복수의 값
+            var password = document.getElementsByName('password')[0].value;
+            sendAjax('http://localhost:3000/login', {'email' : email, 'password' : password});
+        });// http://127.0.0.1:3000
+
+        function sendAjax(url, data){
+          data = JSON.stringify(data); //string형태로 변환
+
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST',url);//첫번쨰 method, 두번째 url
+          xhr.setRequestHeader('Content-Type',"application/json");
+          xhr.send(data);
+
+          xhr.addEventListener('load',function(){
+            var result = JSON.parse(xhr.responseText);
+            var resultDiv = document.querySelector(".result");
+
+            if(result.email) resultDiv.innerHTML = "welcome, "+result.email+ "!!"; //환영메시지
+            else resultDiv.innerHTML = result.name;
+          });
+        };
+    </script>
+
+  </body>
+</html>
