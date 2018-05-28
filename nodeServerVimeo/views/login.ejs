@@ -34,8 +34,11 @@
             var result = JSON.parse(xhr.responseText);
             var resultDiv = document.querySelector(".result");
 
-            if(result.email) resultDiv.innerHTML = "welcome, "+result.email+ "!!"; //환영메시지
-            else resultDiv.innerHTML = result.name;
+            if(result.email) {
+              //resultDiv.innerHTML = "welcome, "+result.email+ "!!"; //환영메시지
+              window.location.href="/main";//main redirect
+          }
+            else resultDiv.innerHTML = result;
           });
         };
     </script>

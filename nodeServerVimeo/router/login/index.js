@@ -38,20 +38,20 @@ passport.deserializeUser(function(id, done) {
 
 
 passport.use('local-login', new LocalStrategy({
-    usernameField: 'email',   //login.ejs -> form-input -> name값
-    passwordField: 'password',
-    passReqToCallback : true
-  }, function(req,email,password,done){
-    var query = connection.query('select * from user where email=?',[email],function(err,rows){
-      if(err) return done(err);
+		usernameField: 'email',
+	  passwordField: 'password',
+	  passReqToCallback : true
+	}, function(req, email, password, done) {
+		var query = connection.query('select * from user where email=?', [email], function(err,rows) {
+			if(err) return done(err);
 
-      if(rows.length){//login 성공
-        return done(null,{'email' : email , 'id' : rows[0].UID});
-      } else{
-        return done(null, false, {'message' : 'your login info is not found'});
-      }
-    });
-  }
+			if(rows.length) {
+				return done(null, {'email' : email, 'id' : rows[0].UID});//로그인 성공
+			} else {
+				  return done(null, false, {'message' : 'Incorrect email or password'});
+			}
+		});
+	}
 ));
 
 // localhost:3000/login -> post
@@ -69,6 +69,7 @@ router.post('/', function(req,res,next){
   })(req, res, next);//authenticate의 추가 인자
 });
 
+module.exports = router;
 
 // router.post('/', function(req,res){
 //   var body = req.body;
@@ -82,5 +83,3 @@ router.post('/', function(req,res,next){
 //     else res.render('welcome.ejs',{'name': name, 'id':rows.insertId});//ejs의 값 : 현재 변수 , insertId = 기본키
 //   });
 // });//('insert into user (email,name,pw) values ("'+email+'","'+name+'","'+passwd+'")',function(err,rows)
-
-module.exports = router;
