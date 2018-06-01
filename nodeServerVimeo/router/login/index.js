@@ -44,9 +44,9 @@ passport.use('local-login', new LocalStrategy({
 	}, function(req, email, password, done) {
 		var query = connection.query('select * from user where email=?', [email], function(err,rows) {
 			if(err) return done(err);
-
-			if(rows.length) {
-				return done(null, {'email' : email, 'id' : rows[0].UID});//로그인 성공
+      //console.log(rows);
+			if(rows.length && ((email==rows[0].email)&&(password==rows[0].pw))) { //post 값 == db 값 -> login
+				return done(null, {'email' : email, 'id' : rows[0].id});//로그인 성공 , 배열 뒤엔 Field 값
 			} else {
 				  return done(null, false, {'message' : 'Incorrect email or password'});
 			}

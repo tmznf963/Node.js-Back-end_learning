@@ -5,6 +5,8 @@ var path = require('path');//상대경로 지정
 var mysql = require('mysql');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var alert = require('alert-node');
+
 
 //mysql 연동
 var connection = mysql.createConnection({
@@ -19,10 +21,10 @@ connection.connect();
 //localhost:3000/join
 router.get('/', function(req,res){
   //res.sendFile(path.join(__dirname,'../../public/join.html'));
-  var msg;
-  var errMsg = req.flash('error');//오류메시지
-  if(errMsg) msg = errMsg;
-  res.render('join.ejs', {'message' : msg});// ejs템플릿 routing
+   var msg;
+   var errMsg = req.flash('error');//오류메시지
+   if(errMsg) msg = errMsg; //에러메시지가 있을경우
+   res.render('join.ejs', {'message' : msg}); //ejs템플릿 routing
 });
 
 //session 처리
@@ -49,7 +51,9 @@ passport.use('local-join', new LocalStrategy({
         console.log('existed user');
         return done(null,false,{message : 'your email is already used'});
       } else{
-        var sql = {email : email, pw : password};// db : 값
+        //alert
+        alert('회원가입 되셨습니다.');
+        var sql = {email : email, pw : password}; // db : 값
         var query = connection.query('insert into user set ?',sql,function(err,rows){
           if(err) throw err;
           return done(null,{'email' : email , 'id' : rows.insertId});
@@ -62,7 +66,7 @@ passport.use('local-join', new LocalStrategy({
 //  localhost:3000/join -> post
 router.post('/',
 passport.authenticate('local-join',
-                                { successRedirect: '/main',
+                                { successRedirect: '/join',
                                  failureRedirect: '/join',
                                  failureFlash: true })
 );
