@@ -12,7 +12,7 @@ var movie = require('./movie/index');
 
 //url routing
 router.get('/', function(req,res){
-  res.sendFile(path.join(__dirname,"../public/main.html"));//__dirname 현재경로
+  res.sendFile(path.join(__dirname,"../views/index.html"));//__dirname 현재경로
 });
 
 router.use('/main', main);//router

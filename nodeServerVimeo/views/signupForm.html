@@ -10,7 +10,7 @@
 <body>
 <!-- style css -->
         <style type="text/css">
-        .result{
+        .messages{
           color : #963b3b;
           margin-bottom: 16px;
         }
@@ -132,10 +132,10 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-6">
-                                <a href="/login" class="active" id="login-form-link">로그인</a>
+                                <a href="signinFrom.html" id="login-form-link">로그인</a>
                             </div>
                             <div class="col-xs-6">
-                                <a href="/join" id="register-form-link">회원가입</a>
+                                <a href="signupForm.html" class="active" id="register-form-link">회원가입</a>
                             </div>
                         </div>
                         <hr>
@@ -143,54 +143,47 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
-                              <div class="result"></div>
-                                <form id="login-form" action="/login" method="post" role="form" style="display: block;">
+                                <form id="login-form" action="/login" method="post" role="form" style="display: none;">
                                     <div class="form-group">
-                                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="아이디" value="">
+                                        <input type="text" name="userID" id="userID" tabindex="1" class="form-control" placeholder="아이디" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="비밀번호">
+                                        <input type="password" name="userPassword" id="userPassword" tabindex="2" class="form-control" placeholder="비밀번호">
                                     </div>
                                     <div class="form-group text-center">
                                         <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
                                         <label for="remember"> 아이디 기억하기</label>
                                     </div>
-                                    <!-- <div class="form-group">
+                                    <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
                                                 <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="로그인">
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="text-center">
+                                                    <a href="https://phpoll.com/recover" tabindex="5" class="forgot-password">비밀번호를 잊어버리셨나요?</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </form>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-sm-offset-3">
-                                <button class="ajaxsend btn btn-login">　　　　　　　로그인　　　　　　　</button> <!-- 버튼 누르면 login -->
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                  <div class="row">
-                                      <div class="col-lg-12">
-                                          <div class="text-center">
-                                              <a href="https://phpoll.com/recover" tabindex="5" class="forgot-password">비밀번호를 잊어버리셨나요?</a>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                                <form id="register-form" action="/register" method="post" role="form" style="display: none;">
+                                <section class="messages"> <%= message %></section>
+                                <form id="register-form" action="/join" method="post" role="form" style="display: block;">
                                     <div class="form-group">
-                                        <input type="text" name="userID" id="userID" tabindex="1" class="form-control" placeholder="아이디" value="">
+                                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="아이디" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" name="userEmail" id="userEmail" tabindex="1" class="form-control" placeholder="이메일 주소" value="">
+                                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="이메일 주소" value="">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="userPassword1" id="userPassword1" tabindex="2" class="form-control" placeholder="비밀번호">
+                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="비밀번호">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="userPassword2" id="userPassword2" tabindex="2" class="form-control" placeholder="비밀번호 확인">
+                                        <input type="password" name="password2" id="password2" tabindex="2" class="form-control" placeholder="비밀번호 확인">
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
@@ -208,39 +201,38 @@
         </div>
     </div>
 
-    <script>
-        document.querySelector('.ajaxsend').addEventListener('click',
-            function(){
-            var username = document.getElementsByName('username')[0].value; //복수의 값
-            var password = document.getElementsByName('password')[0].value;
-            sendAjax('http://localhost:3000/login', {'username' : username, 'password' : password});
-        });// http://127.0.0.1:3000
 
-        function sendAjax(url, data){
-          data = JSON.stringify(data); //string형태로 변환
+<!--- Image Slider -->
 
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST',url);//첫번쨰 method, 두번째 url
-          xhr.setRequestHeader('Content-Type',"application/json");
-          xhr.send(data);
+<!--- Search Form -->
 
-          xhr.addEventListener('load',function(){
-            var result = JSON.parse(xhr.responseText);
-            var resultDiv = document.querySelector(".result");
+<!--- Welcome Section -->
 
-            if(result.username) {
-              resultDiv.innerHTML = "welcome, "+result.username+ "!!"; //환영메시지
-              window.location.href="/main";//main redirect
-          }
-            else resultDiv.innerHTML = result;
-          });
-        };
-    </script>
+<!--- Three Column Section -->
+
+<!--- Footer -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-
+    <script type="text/javascript">
+            $(function() {
+                $('#login-form-link').click(function(e) {
+                    $("#login-form").delay(100).fadeIn(100);
+                    $("#register-form").fadeOut(100);
+                    $('#register-form-link').removeClass('active');
+                    $(this).addClass('active');
+                    e.preventDefault();
+                });
+                $('#register-form-link').click(function(e) {
+                    $("#register-form").delay(100).fadeIn(100);
+                    $("#login-form").fadeOut(100);
+                    $('#login-form-link').removeClass('active');
+                    $(this).addClass('active');
+                    e.preventDefault();
+                });
+            });
+    </script>
 </body>
 </html>

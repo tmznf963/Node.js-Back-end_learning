@@ -40,24 +40,30 @@ passport.deserializeUser(function(id, done) {
 
 
 passport.use('local-join', new LocalStrategy({
-    usernameField: 'email',   //join.ejs -> form-input -> name값
+    usernameField: 'username',   //join.ejs -> form-input -> name값
     passwordField: 'password',
     passReqToCallback : true
-  }, function(req,email,password,done){
-    var query = connection.query('select * from user where email=?',[email],function(err,rows){
+  }, function(req, username, password, done){
+    var query = connection.query('select * from users where uname=?',[username],function(err,rows){
       if(err) return done(err);
 
       if(rows.length){//db -> email 중복
         console.log('existed user');
-        return done(null,false,{message : 'your email is already used'});
+        return done(null,false,{message : '같은 아이디가 존재 합니다.'});//your username is already used
       } else{
-        //alert
-        alert('회원가입 되셨습니다.');
-        var sql = {email : email, pw : password}; // db : 값
-        var query = connection.query('insert into user set ?',sql,function(err,rows){
-          if(err) throw err;
-          return done(null,{'email' : email , 'id' : rows.insertId});
-        });
+        if((password)!=(req.body.password2)){
+          console.log(username);
+          console.log(password);
+          console.log(req.body.password2);
+          return done(null,false,{message : '비밀번호가 일치하지 않습니다.'});
+        }else{
+          alert('회원가입 되셨습니다.');
+          var sql = {uname : username ,em : req.body.email, pwd : password, pwd2 : req.body.password2}; // db : 값
+          var query = connection.query('insert into users set ?',sql,function(err,rows){
+            if(err) throw err;
+            return done(null,{'email' : username , 'id' : rows.insertId});
+          });
+        }
       }
     });
   }

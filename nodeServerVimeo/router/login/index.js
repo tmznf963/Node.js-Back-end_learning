@@ -38,17 +38,17 @@ passport.deserializeUser(function(id, done) {
 
 
 passport.use('local-login', new LocalStrategy({
-		usernameField: 'email',
+		usernameField: 'username',
 	  passwordField: 'password',
 	  passReqToCallback : true
-	}, function(req, email, password, done) {
-		var query = connection.query('select * from user where email=?', [email], function(err,rows) {
+	}, function(req, username, password, done) {
+		var query = connection.query('select * from users where uname=?', [username], function(err,rows) {
 			if(err) return done(err);
       //console.log(rows);
-			if(rows.length && ((email==rows[0].email)&&(password==rows[0].pw))) { //post 값 == db 값 -> login
-				return done(null, {'email' : email, 'id' : rows[0].id});//로그인 성공 , 배열 뒤엔 Field 값
+			if(rows.length && ((username==rows[0].uname)&&(password==rows[0].pwd))) { //post 값 == db 값 -> login
+				return done(null, {'email' : username, 'id' : rows[0].id});//로그인 성공 , 배열 뒤엔 Field 값
 			} else {
-				  return done(null, false, {'message' : 'Incorrect email or password'});
+				  return done(null, false, {'message' : '아이디 혹은 비밀번호가 옳지 않습니다.'});
 			}
 		});
 	}

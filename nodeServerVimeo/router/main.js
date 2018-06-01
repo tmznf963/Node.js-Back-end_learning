@@ -7,6 +7,7 @@ var path = require('path');//상대경로 지정
 //main page는 세션정보가 있을때만 접근이 가능
 router.get('/', function(req,res){
   var id = req.user;
+  console.log(req.user);
   if(!id) res.render('login.ejs'); //login page
   res.render('main.ejs',{'id' : id}); //ejs -> id
   //res.sendFile(path.join(__dirname,'../public/main.html'));
