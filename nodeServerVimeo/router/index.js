@@ -15,7 +15,9 @@ var map = require('./map/index');
 //res.sendFile(path.join(__dirname,"../views/index.html"));//__dirname 현재경로
 //localhost:3000/
 router.get('/', function(req,res){
-  res.render('index.ejs'); //첫 화면
+  var id = req.user; //유저값
+  if(!id) res.render('index.ejs');//첫 화면
+  res.render('main.ejs',{'id' : id}); //ejs -> id
 });
 
 router.use('/main', main);//router
