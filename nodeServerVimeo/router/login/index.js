@@ -46,7 +46,7 @@ passport.use('local-login', new LocalStrategy({
 			if(err) return done(err);
       //console.log(rows);
 			if(rows.length && ((username==rows[0].uname)&&(password==rows[0].pwd))) { //post 값 == db 값 -> login
-				return done(null, {'email' : username, 'id' : rows[0].id});//로그인 성공 , 배열 뒤엔 Field 값
+				return done(null, {'username' : username, 'id' : rows[0].id});//로그인 성공 , 배열 뒤엔 Field 값
 			} else {
 				  return done(null, false, {'message' : '아이디 혹은 비밀번호가 옳지 않습니다.'});
 			}
@@ -59,7 +59,7 @@ passport.use('local-login', new LocalStrategy({
 router.post('/', function(req,res,next){
   passport.authenticate('local-login', function(err,user,info){
     if(err) res.status(500).json(err);
-    if (!user) return res.status(401).json(info.message);//추가메시지
+    if (!user) return res.status(401).json(info.message);//유저가 없을시,info == 추가메시지
 
     req.logIn(user, function(err) {
       if (err) { return next(err); }

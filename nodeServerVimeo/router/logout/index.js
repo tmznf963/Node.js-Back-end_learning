@@ -4,7 +4,7 @@ var router = express.Router();//라우터 처리
 
 router.get('/', function(req, res){
   req.logout();
-  res.redirect('/login');
+  res.render('index.ejs');
 });
 
 module.exports = router;//router모듈 사용
