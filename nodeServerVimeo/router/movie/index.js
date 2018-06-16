@@ -36,56 +36,26 @@ router.get('/',function(req,res){
     });
 });
 
-//2. /movie POST
-router.use('/',function(req,res){
-  var title = req.body.title;
-  var type = req.body.type;
-  var grade = req.body.grade;
-  var actor = req.body.actor;
+// 3. /movie/:keyword , GET
+router.get('/:keyword', function(req,res) {
+	var keyword = req.params.keyword; //keyword == 사랑
+  //console.log("keyword : ",keyword);
+	var responseData = {};
+  //select code from keyword where val like ?', ["%"+keyword+"%"], function(err, rows)
+	var query = connection.query('select movie_title from movie2 INNER JOIN keyword.code like CONCAT ?', ["%"+keyword+"%"], function(err, rows) {
+    //select code from keyword where val like=?
+		if(err) throw err;
+		if(rows[0]) {
+      console.log(rows);
+			responseData.result = 1;
+			responseData.data = rows;
+		} else {
+			responseData.result = 0;
+		}
+		res.json(responseData)
+	})
+})
 
-  var sql = {title,type,grade,actor};// db : 값
-  var query = connection.query('insert into movie set ?',sql,function(err,rows){
-    if(err) throw err;
-    return res.json({'result' : 1});
-  });
-});
-
-// 3. /movie/:title GET
-router.get('/:title',function(req,res){
-  var title = req.params.title;
-
-    var responseData ={};
-
-    var query = connection.query('select * from movie where title =?',[title],function(err,rows){
-      if(err) throw err;
-      if(rows[0]){//0값이 있을 경우
-        responseData.result = 1;
-        responseData.data = rows;// 배열형태
-      }else{
-        responseData.result = 0;
-      }
-      res.json(responseData);
-    });
-});
-
-// 4. /movie/:title DELETE
-router.delete('/:title',function(req,res){
-  var title = req.params.title;
-
-    var responseData ={};
-
-    var query = connection.query('delete from movie where title =?', [title], function(err, rows) {
-  	 	if(err) throw err;
-
-  		if(rows.affectedRows > 0) {
-  			responseData.result = 1;
-  			responseData.data = title;
-  		} else {
-  			responseData.result = 0;
-  		}
-  		res.json(responseData)
-    });
-});
 
 
 module.exports = router;

@@ -23,44 +23,10 @@
                 <section class="showResult"></section>
             </li>
 
-            <li class="post">
-                <form action="" method="post">
-                   <div> 제목 : <input type="text" name="title" placeholder="Terminator"> </div>
-                   <div> 장르 : <input type="text" name="type" placeholder="drama"> </div>
-                   <div> 평점 : <input type="text" name="grade" placeholder="8.43"> </div>
-                   <div> 주연 : <input type="text" name="actor" placeholder="Tom cruise"> </div>
-                </form>
-                <button>영화추가</button>
-                <section class="showResult"></section>
-            </li>
-
             <li class="get_id">
-                <input type="text" name="title">
+                <input type="text" name="keyword">
                 <button>영화상세정보</button>
                 <section class="showResult"></section>
-            </li>
-
-            <li class="delete_id">
-                <input type="text" name="title">
-                <button>영화삭제</button>
-                <section class="showResult"></section>
-
-            </li>
-
-            <li class="update_id">
-                <form action="" method="post">
-                   <div> 제목 : <input type="text" name="title" placeholder="Terminator"> </div>
-                   <div> 장르 : <input type="text" name="type"  placeholder="drama"> </div>
-                   <div> 평점 : <input type="text" name="grade" placeholder="8.43"> </div>
-                   <div> 주연 : <input type="text" name="actor" placeholder="Tom cruise"> </div>
-                </form>
-                <button>영화정보갱신</button>
-                <section class="showResult">ㅁㅁ</section>
-            </li>
-
-            <li class="get_min">
-                <button>현재 상영중인영화</button>
-                <section class="showResult">aaa</section>
             </li>
         </ul>
     </section>
@@ -90,38 +56,23 @@
                         }
                     }
                     break;
-                case "post":
-                    url = "/movie";
-                    method = "POST";
-                    let inputs = [].slice.call(document.querySelector("form").elements);
-                    data = inputs.reduce(function(pre,next) {
-                        pre[next.name] = next.value;
-                        return pre;
-                    }, {});
-                    fn = function (result) {
-                        if(result.result === 1) showResult.innerHTML = "새로운 영화 데이터가 잘 추가됐습니다.";
-                        else showResult.innerHTML = "list not found";
-                    }
-                    break;
                 case "get_id":
                     url = "/movie/"+li.getElementsByTagName("input")[0].value;
                     method = "GET";
                     fn = function(result) {
                         if(result.result === 1) {
-                            showResult.innerHTML = result.data[0].actor;
+                          let codes = result.data.reduce(function(pre,next){
+                              pre += "<li>" + next.code + "</li>"
+                              return pre;
+                          },"");
+                          showResult.innerHTML = "<ul>" + codes + "</ul>";
+                          // var i;
+                          // for(i = 0 ; i < result.data.length ; i++){
+                          //   showResult.innerHTML = result.data.length
+                          //   showResult.innerHTML = result.data[i].code;//result.data[0].Actors
+                          // }
                         }else {
                             showResult.innerHTML = "해당하는 영화가 없네요..";
-                        }
-                    }
-                    break;
-                case "delete_id":
-                    url = "/movie/"+li.getElementsByTagName("input")[0].value;
-                    method = "DELETE";
-                    fn = function(result) {
-                        if(result.result === 1) {
-                            showResult.innerHTML = "선택한영화" + result.data+ "가 잘 삭제됐습니다";
-                        }else{
-                            showResult.innerText = "해당영화가 없습니다";
                         }
                     }
                     break;
