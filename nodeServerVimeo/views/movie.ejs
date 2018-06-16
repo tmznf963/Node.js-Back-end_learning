@@ -61,7 +61,7 @@
                     method = "GET";
                     fn = function(result) {
                         if(result.result === 1) {
-                          let codes = result.data.reduce(function(pre,next){
+                          let titles = result.data.reduce(function(pre,next){
                               pre += "<li>" + next.code + "</li>"
                               return pre;
                           },"");

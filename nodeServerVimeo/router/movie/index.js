@@ -41,12 +41,11 @@ router.get('/:keyword', function(req,res) {
 	var keyword = req.params.keyword; //keyword == 사랑
   //console.log("keyword : ",keyword);
 	var responseData = {};
-  //select code from keyword where val like ?', ["%"+keyword+"%"], function(err, rows)
-	var query = connection.query('select movie_title from movie2 INNER JOIN keyword.code like CONCAT ?', ["%"+keyword+"%"], function(err, rows) {
+
+	var query = connection.query('select code from keyword where val like ?', ["%"+keyword+"%"], function(err, rows) {
     //select code from keyword where val like=?
 		if(err) throw err;
 		if(rows[0]) {
-      console.log(rows);
 			responseData.result = 1;
 			responseData.data = rows;
 		} else {
