@@ -44,9 +44,9 @@ passport.use('local-login', new LocalStrategy({
 	}, function(req, username, password, done) {
 		var query = connection.query('select * from users where uname=?', [username], function(err,rows) {
 			if(err) return done(err);
-      //console.log(rows);
+      console.log(rows[0].uname);
 			if(rows.length && ((username==rows[0].uname)&&(password==rows[0].pwd))) { //post 값 == db 값 -> login
-				return done(null, {'username' : username, 'id' : rows[0].id});//로그인 성공 , 배열 뒤엔 Field 값
+				return done(null, {'username' : rows[0].uname, 'id' : rows[0].id});//로그인 성공 , 배열 뒤엔 Field 값
 			} else {
 				  return done(null, false, {'message' : '아이디 혹은 비밀번호가 옳지 않습니다.'});
 			}

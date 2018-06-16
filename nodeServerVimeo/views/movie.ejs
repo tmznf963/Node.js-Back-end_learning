@@ -10,7 +10,7 @@
     <body>
 
     <header>
-        <div><a href="/main/">메인페이지</a></div>
+        <div><a href="/">메인페이지</a></div>
         <div><a href="/logout">logout</a></div>
     </header>
 
@@ -81,7 +81,7 @@
                     fn = function(result) {
                         if(result.result === 1) {
                             let titles = result.data.reduce(function(pre,next){
-                                pre += "<li>" + next.title + "</li>"
+                                pre += "<li>" + next.movie_title + "</li>"
                                 return pre;
                             },"");
                             showResult.innerHTML = "<ul>" + titles + "</ul>";

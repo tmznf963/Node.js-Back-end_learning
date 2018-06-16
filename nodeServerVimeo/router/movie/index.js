@@ -23,7 +23,7 @@ router.get("/list",function(req,res){
 router.get('/',function(req,res){
     var responseData ={};
 
-    var query = connection.query('select title from movie',function(err,rows){
+    var query = connection.query('select movie_title from movie2',function(err,rows){
       if(err) throw err;
       if(rows.length){//1이상 일 경우
         //console.log(rows);

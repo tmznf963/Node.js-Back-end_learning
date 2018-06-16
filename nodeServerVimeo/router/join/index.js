@@ -28,15 +28,7 @@ router.get('/', function(req,res){
 });
 
 //session 처리
-passport.serializeUser(function(user, done) {
-  console.log('passport session save : ', user.id);
-  done(null, user.id);
-});
 
-passport.deserializeUser(function(id, done) {
-  console.log('passport session get id : ', id);
-  done(null, id);
-});
 
 
 passport.use('local-join', new LocalStrategy({
@@ -52,9 +44,9 @@ passport.use('local-join', new LocalStrategy({
         return done(null,false,{message : '같은 아이디가 존재 합니다.'});//your username is already used
       } else{
         if((password)!=(req.body.password2)){
-          console.log(username);
-          console.log(password);
-          console.log(req.body.password2);
+          //console.log(username);
+          //console.log(password);
+          //console.log(req.body.password2);
           return done(null,false,{message : '비밀번호가 일치하지 않습니다.'});
         }else{
           alert('회원가입 되셨습니다.');

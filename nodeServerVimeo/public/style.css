@@ -52,8 +52,15 @@ html, body{
   margin-top: .3rem;
   margin-bottom: 1rem;
 }
+
 .fa-code{
   color: #e54d26;
+}
+.fa-js{
+  color: #e59e26;
+}
+.fa-node-js{
+  color: #27a31b;
 }
 .fa-bold{
   color: #563d7c;
@@ -61,7 +68,10 @@ html, body{
 .fa-css3{
   color: #2163af;
 }
-.fa-code, .fa-bold, .fa-css3{
+.fa-database{
+  color: #b4bcb3;
+}
+.fa-code, .fa-bold, .fa-css3, .fa-js, .fa-node-js, .fa-database{
   font-size: 4em;
   margin: 1rem;
 }
