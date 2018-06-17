@@ -5,16 +5,97 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>movie list</title>
-        <link rel="stylesheet" href="/css/ui.css">
+        <style>
+        ul,li,section,div {padding: 0;margin: 0}
+        li {
+            list-style: none;
+        }
+
+        h1 {
+            margin-top : 60px;
+            text-align: center;
+            font-family: monospace;
+            font-weight: 100;
+        }
+
+
+        // movie area
+        .showWrap {
+            width: 2000px;
+            margin: 60px auto;
+            overflow-y: auto;
+        }
+
+        .showWrap > ul {
+            overflow: auto;
+            height: 700px;
+            margin: 0px auto;
+            background-color: #f3f2f2;
+        }
+
+        .showWrap > ul > li {
+            padding: 50px;
+            width: 400px;
+            float: left;
+            border-right: 1px solid #e6dada;
+            height: 500px;
+        }
+
+        .showWrap form > div {
+            margin-bottom: 12px;
+        }
+
+        .showWrap button {
+            width: 120px;
+            height: 30px;
+            margin-top: 20px;
+        }
+
+        .showResult {
+            margin-top: 30px;
+        }
+
+        .showResult li {
+            margin-bottom: 16px;
+        }
+
+        .showMovieResult {
+            margin-top: 30px;
+        }
+
+        .showMovieResult li {
+            margin-bottom: 16px;
+        }
+        </style>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link href="style.css" rel="stylesheet">
+        <!-- <link rel="stylesheet" href="/css/ui.css"> -->
+
     </head>
     <body>
-
+<!--
     <header>
         <div><a href="/">메인페이지</a></div>
         <div><a href="/logout">logout</a></div>
-    </header>
+    </header> -->
+    <!-- Navigation -->
+    <nav class ="navbar navbar-expand-md navbar-light bg-light sticky-top">
+      <div class="container-fluid">
+        <a class="naver-brand" href="/"><img src="/img/logo.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div calss="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-    <h1>Movie list API Test</h1>
+    <h1>MovieRecommendation</h1>
 
     <section class="showWrap">
         <ul>
@@ -25,9 +106,12 @@
 
             <li class="get_id">
                 <input type="text" name="keyword">
-                <button>영화상세정보</button>
+                <button>Keyword 검색</button>
                 <section class="showResult"></section>
             </li>
+            <!-- <li calss ="get_id">
+              <section class="showMovieResult"></section>
+            </li> -->
         </ul>
     </section>
 
@@ -38,6 +122,7 @@
             const target = e.target;
             const li = target.closest('LI');
             const showResult = li.querySelector(".showResult");
+            const showMovieResult = li.querySelector(".showMovieResult");
             const type = li.className;
             if(target.tagName !== "BUTTON") return;
             switch (type) {
@@ -47,7 +132,7 @@
                     fn = function(result) {
                         if(result.result === 1) {
                             let titles = result.data.reduce(function(pre,next){
-                                pre += "<li>" + next.movie_title + "</li>"
+                                pre += "<li><a href='https://movie.naver.com/movie/bi/mi/basic.nhn?code="+(next.code)+"'>" + next.movie_title + "</a></li>"
                                 return pre;
                             },"");
                             showResult.innerHTML = "<ul>" + titles + "</ul>";
@@ -58,19 +143,18 @@
                     break;
                 case "get_id":
                     url = "/movie/"+li.getElementsByTagName("input")[0].value;
+                    code = "";
                     method = "GET";
                     fn = function(result) {
                         if(result.result === 1) {
+                          //<a href="https://www.w3schools.com">Visit W3Schools.com!</a>
+                          //'<span class="markerbg marker_' + (index+1) + '"></span>'
+                          //<input type = button value=next.movie_title onclick="">
                           let titles = result.data.reduce(function(pre,next){
-                              pre += "<li>" + next.code + "</li>"
+                              pre += "<li><a href='https://movie.naver.com/movie/bi/mi/basic.nhn?code="+(next.code)+"'>" + next.movie_title + "</a></li>"
                               return pre;
                           },"");
-                          showResult.innerHTML = "<ul>" + codes + "</ul>";
-                          // var i;
-                          // for(i = 0 ; i < result.data.length ; i++){
-                          //   showResult.innerHTML = result.data.length
-                          //   showResult.innerHTML = result.data[i].code;//result.data[0].Actors
-                          // }
+                          showResult.innerHTML = "<ul>" + titles + "</ul>";//ul
                         }else {
                             showResult.innerHTML = "해당하는 영화가 없네요..";
                         }

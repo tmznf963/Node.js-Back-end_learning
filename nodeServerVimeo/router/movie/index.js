@@ -23,7 +23,7 @@ router.get("/list",function(req,res){
 router.get('/',function(req,res){
     var responseData ={};
 
-    var query = connection.query('select movie_title from movie2',function(err,rows){
+    var query = connection.query('select movie_title,code from movie2',function(err,rows){
       if(err) throw err;
       if(rows.length){//1이상 일 경우
         //console.log(rows);
@@ -42,8 +42,10 @@ router.get('/:keyword', function(req,res) {
   //console.log("keyword : ",keyword);
 	var responseData = {};
 
-	var query = connection.query('select code from keyword where val like ?', ["%"+keyword+"%"], function(err, rows) {
-    //select code from keyword where val like=?
+	var query = connection.query('select m.movie_title,m.point,m.code from movie2 m inner join keyword k on m.code = k.code where k.val like ?', ["%"+keyword+"%"], function(err, rows) {
+    //select m.movie_title from movie2 m inner join keyword k on m.code = k.code where k.val like '%사랑%';
+    //select code from keyword where val like ?
+    //console.log(rows);
 		if(err) throw err;
 		if(rows[0]) {
 			responseData.result = 1;
