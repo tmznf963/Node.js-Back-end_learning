@@ -5,7 +5,7 @@ var path = require('path');//상대경로 지정
 var mysql = require('mysql');
 
 //mysql 연동
-var connection = mysql.createConnection({
+var connection = mysql.createConnection({//'localhost'
   host     : 'localhost',
   port     : '3306',
   user     : 'root',
@@ -42,7 +42,7 @@ router.get('/:keyword', function(req,res) {
   //console.log("keyword : ",keyword);
 	var responseData = {};
 
-	var query = connection.query('select m.movie_title,m.point,m.code from movie2 m inner join keyword k on m.code = k.code where k.val like ?', ["%"+keyword+"%"], function(err, rows) {
+  	var query = connection.query('select m.movie_title,m.point,m.code from movie2 m inner join keyword k on m.code = k.code where k.val like ?', ["%"+keyword+"%"], function(err, rows) {
     //select m.movie_title from movie2 m inner join keyword k on m.code = k.code where k.val like '%사랑%';
     //select code from keyword where val like ?
     //console.log(rows);

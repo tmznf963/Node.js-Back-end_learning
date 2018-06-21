@@ -20,13 +20,13 @@
 	<div calss="collapse navbar-collapse" id="navbarResponsive">
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item active">
-				<a class="nav-link" href="#">Home</a>
+				<a class="nav-link" href="/">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/map">Cinema Location</a>
+				<a class="nav-link" href="/" onclick="warningMss()">Cinema Location</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Services</a>
+				<a class="nav-link" href="/movie/list">Services</a>
 			</li>
 			<li class="dropdown">
 				<a class="nav-link" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -82,7 +82,7 @@
 </div>
 
 <!--- Search Form -->
-<div class="container">
+<!-- <div class="container">
 		    <div class="col-sm-12 pull-center well">
 		        <form class="form-inline-center" action="/index" method="POST">
 		                        <select class="form-control">
@@ -101,7 +101,7 @@
 		                        </div>
 		        </form>
 		    </div>
-		</div>
+		</div> -->
 <!--- Welcome Section -->
 
 <!--- Three Column Section -->
@@ -110,21 +110,33 @@
 		<div class="col-xs-12 col-sm-6 col-md-4">
 			<i class="fas fa-code"></i>
 			<h3>HTML5</h3>
-			<p>Built with the latest version of HTML, HTML5.</p>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-4">
-			<i class="fas fa-bold"></i>
-			<h3>BOOTSTRAP</h3>
-			<p>Built with the latest version of Bootstrap, Bootstrap.</p>
+			<i class="fab fa-js"></i>
+			<h3>JAVASCRIPT</h3>
 		</div>
 		<div class="col-sm-12 col-md-4">
 			<i class="fab fa-css3"></i>
-			<h3>CSS</h3>
-			<p>Built with the latest version of CSS, CSS3.</p>
+			<h3>CSS3</h3>
+		</div>
+	</div>
+	<div class="row text-center padding">
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<i class="fas fa-bold"></i>
+			<h3>BOOTSTRAP</h3>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<i class="fab fa-node-js"></i>
+			<h3>NODE.JS</h3>
+		</div>
+		<div class="col-sm-12 col-md-4">
+			<i class="fas fa-database"></i>
+			<h3>DATABASE</h3>
 		</div>
 	</div>
 	<hr class="my-4">
 </div>
+
 
 
 <!--- Footer -->
@@ -153,7 +165,7 @@
 				<hr class="light">
 				<p>qhfhd963@naver.com</p>
 				<p>alrha486@naver.com</p>
-				<p>geungeun@naver.com</p>
+				<p>ljg95924@gmail.com</p>
 			</div>
 			<div class="col-12">
 				<hr class="light-100">
@@ -166,5 +178,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<script>
+	// 로그인 alert
+	function warningMss() {
+			alert("로그인 후 이용해주세요.");
+	}
+	</script>
 </body>
 </html>
