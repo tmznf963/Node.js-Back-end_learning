@@ -1,0 +1,118 @@
+CREATE TABLE users ( 
+    id INT NOT NULL AUTO_INCREMENT , 
+    uname VARCHAR(255) NOT NULL ,
+    em VARCHAR(255) NOT NULL , 
+    pwd VARCHAR(255) NOT NULL ,
+    pwd2 VARCHAR(255) NOT NULL , 
+    PRIMARY KEY (id), 
+    UNIQUE (uname)
+) ENGINE = InnoDB;
+
+
+id
+username
+email
+password
+
+CREATE TABLE user( 
+    id INT NOT NULL AUTO_INCREMENT , 
+    email VARCHAR(50) NOT NULL ,
+    pw VARCHAR(255) NOT NULL, 
+    PRIMARY KEY (id), 
+    UNIQUE (email)
+) ENGINE = InnoDB;
+
+
+    <!-- <% if (email) { %>
+      <script type="text/javascript">alert("회원가입 되었습니다.");</script>
+    <% } %> -->
+
+  var msg;
+  var em;
+  var errMsg = req.flash('error');//오류메시지
+  var email = req.body.email;
+  if(errMsg) msg = errMsg; //에러메시지가 있을경우
+  if(email) em = email;
+    res.render('join.ejs', {'message' : msg ,'email' : em }); //ejs템플릿 routing
+
+x == y (x가 y와 같음)
+x != y (x가 y와 같지 않음 )
+x <  y (x가 y보다 작음)
+x >  y (x가 y보다 큼)
+x <= y (x가 y보다 작거나 같음)
+x >= y (x가 y보다 크거나 같음)
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>main.html</title>
+  </head>
+  <body>
+    <h1>main page</h1>
+    <h3>welcome, <%= id %></h3>
+    <p>JavaScript 는 동적으로 컨텐츠를 바꾸고, 멀티미디어를 다루고, 움직이는 이미지등 웹 페이지를 꾸며주도록 하는 프로그래밍 언어이다. 물론, 전부는 아니지만 몇 줄만의 자바스크립트 코드만으로 꽤나 훌륭한 작품을 만들 수 있다.
+    </p>
+    <div><a href="/logout">Logout</a></div>
+
+  </body>
+</html>
+
+
+
+csv 파일 mysql 저장
+
+INSERT INTO movie2 (code, type, grade,actor) 
+VALUES ('master', 'action','9.10','leebynughun'),
+
+select m.movie_title from movie2 m inner join keyword k on m.code = k.code where k.val like '%사랑%';
+
+
+
+LOAD DATA LOCAL INFILE "C:\\github\\graduation-work\\movie_list03.csv"
+INTO TABLE mr.movie2 FIELDS TERMINATED BY ",";
+
+LOAD DATA LOCAL INFILE "C:\\movie_keyword_top10.csv"
+INTO TABLE mr.keyword FIELDS TERMINATED BY ",";
+
+
+select * from CAT_TREE where cate_name like '%프린터%';
+
+
+
+
+CREATE TABLE movie2 ( 
+    id INT NOT NULL AUTO_INCREMENT , 
+    code INT NOT NULL ,
+    movie_title VARCHAR(255) NOT NULL , 
+    point float(4,2) NOT NULL ,
+    Genres VARCHAR(255) NOT NULL ,
+    Times INT NOT NULL , 
+    Releases VARCHAR(255) NOT NULL ,
+    Directors VARCHAR(255) NOT NULL ,
+    Actors VARCHAR(255) NOT NULL ,
+    Grades VARCHAR(255) NOT NULL ,
+    PRIMARY KEY (id),
+    UNIQUE (code) 
+) ENGINE = InnoDB;
+
+CREATE TABLE keyword( 
+    id INT NOT NULL AUTO_INCREMENT ,
+    code INT NOT NULL,
+    val VARCHAR(255) NOT NULL ,
+    fre VARCHAR(255) NOT NULL, 
+    PRIMARY KEY (id), 
+    UNIQUE (code)
+) ENGINE = InnoDB;
+
+
+id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| code        | int(11)      | NO   | UNI | NULL    |                |
+| movie_title | varchar(255) | NO   |     | NULL    |                |
+| point       | float(4,2)   | NO   |     | NULL    |                |
+| Genres      | varchar(255) | NO   |     | NULL    |                |
+| Times       | int(11)      | NO   |     | NULL    |                |
+| Releases    | varchar(255) | NO   |     | NULL    |                |
+| Directors   | varchar(255) | NO   |     | NULL    |                |
+| Actors      | varchar(255) | NO   |     | NULL    |                |
+| Grades

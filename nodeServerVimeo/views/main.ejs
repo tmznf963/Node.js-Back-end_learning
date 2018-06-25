@@ -102,18 +102,34 @@
 		    </div>
 		</div> -->
 <!--- Welcome Section -->
-<div class="container-fluid padding">
-	<hr class="my-4">
-	<div class="row Welcome text-center">
-		<div class="col-12">
-			<h1 class="display-4">환영합니다.</h1>
+<% if (id==1) { %>
+	<div class="container-fluid padding">
+		<hr class="my-4">
+		<div class="row Welcome text-center">
+			<div class="col-12">
+				<h1 class="display-4">안녕하세요^^</h1>
+			</div>
+			<div class="col-12">
+				<p class="lead">관리자님 좋은 하루입니다.</p>
+			</div>
 		</div>
-		<div class="col-12">
-			<p class="lead">당신은  <%= id %>번째  회원입니다.</p>
-		</div>
+		<hr class="my-4">
 	</div>
-	<hr class="my-4">
-</div>
+<% } %>
+<% if(id!=1) { %>
+	<div class="container-fluid padding">
+		<hr class="my-4">
+		<div class="row Welcome text-center">
+			<div class="col-12">
+				<h1 class="display-4">환영합니다.</h1>
+			</div>
+			<div class="col-12">
+				<p class="lead">당신은  <%= id-1 %>번째  회원입니다.</p>
+			</div>
+		</div>
+		<hr class="my-4">
+	</div>
+<% } %>
 
 <!--- Three Column Section -->
 <div class="container-fluid padding">
