@@ -26,7 +26,12 @@
 				<a class="nav-link" href="/map">Cinema Location</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/movie/list">Services</a>
+				<% if (id==1) { %>
+					<a class="nav-link" href="/admin/mng">Services</a>
+				<% } %>
+				<% if (id!=1) { %>
+  				<a class="nav-link" href="/movie/list">Services</a>
+				<% } %>
 			</li>
 			<li class="dropdown">
 				<a class="nav-link" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -101,6 +106,7 @@
 		        </form>
 		    </div>
 		</div> -->
+
 <!--- Welcome Section -->
 <% if (id==1) { %>
 	<div class="container-fluid padding">
