@@ -19,100 +19,38 @@
         }
 
 
-        /* main  */
-        header {
-            margin: 30px;
-            overflow: auto;
-        }
-        header > div {
-            float : left;
-            margin-right: 20px;
-        }
-        section.content {
-            margin: 30px;
-            }
-
-
-        /* login */
-        .formWrap {
-            width: 350px;
-            overflow: auto;
-            margin: 30px auto;
-        }
-
-        form span {
-            display: inline-block;
-            width : 80px;
-        }
-
-        .email {
-            margin-bottom: 4px;
-        }
-
-        .inputWrap, .sendbtn {
-            float: left;
-        }
-
-        .sendbtn {
-            float: left;
-            margin-left: 20px;
-            width: 80px;
-            height: 40px;
-            background-color: slategray;
-            color:#fff;
-            height: 64px;
-        }
-
-        .btn-small {
-
-        }
-
-        input {
+        .input {
             width: 150px;
             height: 24px;
         }
 
-        .result {
-            text-align: center;
-            color: #c33;
-        }
 
-        .signup {
-            margin-top: 6px;
-            font-size: 1.6rem;
-            text-align: center;
-        }
 
         // movie area
         .showWrap {
-            width: 2000px;
+            width: 1000px;
             margin: 60px auto;
             overflow-y: auto;
         }
 
         .showWrap > ul {
             overflow: auto;
-            width: 1928px;
+            width: 1418px;
             margin: 0px auto;
+            height: 600px;
             background-color: #f3f2f2;
         }
 
         .showWrap > ul > li {
             padding: 60px;
-            width: 200px;
+            width: 280px;
             float: left;
-            border-right: 1px solid #e6dada;
+            border-right: 2px solid #e6dada ;
             height: 500px;
         }
 
         .showWrap form > div {
             margin-bottom: 12px;
-        }
-
-        .showWrap button {
-            width: 120px;
-            height: 30px;
-            margin-top: 20px;
         }
 
         .showResult {
@@ -156,38 +94,40 @@
     <section class="showWrap">
         <ul>
             <li class="get_all">
-                <button>모든영화보기</button>
+                <button type="button" class="btn btn-outline-primary">모든영화보기</button>
                 <section class="showResult"></section>
             </li>
             <li class="post">
                 <form action="" method="post">
-                   <div> 코드 : <input type="text" name="code" placeholder="123456"> </div>
-                   <div> 제목 : <input type="text" name="movie_title" placeholder="블랙팬서"> </div>
-                   <div> 평점 : <input type="text" name="point" placeholder="8.43"> </div>
-                   <div> 장르 : <input type="text" name="Genres" placeholder="액션"> </div>
-                   <div> 상영시간 : <input type="text" name="Times" placeholder="113"> </div>
-                   <div> 개봉날짜 : <input type="text" name="Releases" placeholder="20180214"> </div>
-                   <div> 감독 : <input type="text" name="Directors" placeholder="히로키 류이치"> </div>
-                   <div> 배우 : <input type="text" name="Actors" placeholder="채드윅 보스만"> </div>
-                   <div> 등급 : <input type="text" name="Grades" placeholder="12세 관람가 PG-13"> </div>
+                   <div> 코드 : <input type="text" class="form-control" name="code" placeholder="ex) 123456"> </div>
+                   <div> 제목 : <input type="text" class="form-control" name="movie_title" placeholder="ex) 블랙 팬서"> </div>
+                   <div> 평점 : <input type="text" class="form-control" name="point" placeholder="ex) 8.43"> </div>
+                   <div> 장르 : <input type="text" class="form-control" name="Genres" placeholder="ex) 액션"> </div>
+                   <div> 상영시간 : <input type="text" class="form-control" name="Times" placeholder="ex) 113"> </div>
+                   <div> 개봉날짜 : <input type="text" class="form-control" name="Releases" placeholder="ex) 20180214"> </div>
+                   <div> 감독 : <input type="text" class="form-control" name="Directors" placeholder="ex) 히로키 류이치"> </div>
+                   <div> 배우 : <input type="text" class="form-control" name="Actors" placeholder="ex) 채드윅 보스만"> </div>
+                   <div> 등급 : <input type="text" class="form-control" name="Grades" placeholder="ex) 12세 관람가 PG-13"> </div>
                 </form>
-                <button>영화추가</button>
-                <section class="showResult"></section>
-            </li>
-            <li class="get_id">
-                <input type="text" name="keyword">
-                <button>Keyword 검색</button>
+                <button type="button" class="btn btn-outline-success">영화 추가</button>
                 <section class="showResult"></section>
             </li>
 
             <li class="delete_id">
-                <input type="text" name="movie_title">
-                <button>영화삭제</button>
+                <p><input type="text" class="form-control" name="movie_title" placeholder="ex) 블랙 팬서"></p>
+                <p><button type="button" class="btn btn-outline-danger">영화 삭제</button></p>
                 <section class="showResult"></section>
             </li>
-            <!-- <li calss ="get_id">
-              <section class="showMovieResult"></section>
-            </li> -->
+
+            <li class="get_user">
+                <button type="button" class="btn btn-outline-warning">모든회원보기</button>
+                <section class="showResult"></section>
+            </li>
+            <li class="delete_uname">
+                <p><input type="text" class="form-control" name="uname" placeholder="ex) gamma"></p>
+                <p><button type="button" class="btn btn-outline-info">회원 삭제</button></p>
+                <section class="showResult"></section>
+            </li>
         </ul>
     </section>
 
@@ -217,6 +157,21 @@
                         }
                     }
                     break;
+                case "get_user":
+                    url = "/admin/user";
+                    method = "GET";
+                    fn = function(result) {
+                        if(result.result === 1) {
+                            let users = result.data.reduce(function(pre,next){
+                                pre += "<li>" + next.uname + "</li>"
+                                return pre;
+                            },"");
+                            showResult.innerHTML = "<ul>" + users + "</ul>";
+                        } else {
+                         showResult.innerHTML = "list not found";
+                        }
+                    }
+                    break;
                 case "post":
                     url = "/admin";
                     method = "POST";
@@ -230,36 +185,28 @@
                         else showResult.innerHTML = "list not found";
                     }
                     break;
-                case "get_id":
-                    url = "/admin/"+li.getElementsByTagName("input")[0].value;
-                    code = "";
-                    method = "GET";
-                    fn = function(result) {
-                        if(result.result === 1) {
-                          //<a href="https://www.w3schools.com">Visit W3Schools.com!</a>
-                          //'<span class="markerbg marker_' + (index+1) + '"></span>'
-                          //<input type = button value=next.movie_title onclick="">
-                          let titles = result.data.reduce(function(pre,next){
-                              pre += "<li><a href='https://movie.naver.com/movie/bi/mi/basic.nhn?code="+(next.code)+"'>" + next.movie_title + "</a></li>"
-                              return pre;
-                          },"");
-                          showResult.innerHTML = "<ul>" + titles + "</ul>";//ul
-                        }else {
-                            showResult.innerHTML = "해당하는 영화가 없네요..";
-                        }
-                    }
-                    break;
                 case "delete_id":
                     url = "/admin/"+li.getElementsByTagName("input")[0].value;
                     method = "DELETE";
                     fn = function(result) {
                         if(result.result === 1) {
-                            showResult.innerHTML = "선택한영화" + result.data+ "가 잘 삭제됐습니다";
+                            showResult.innerHTML = "선택한 영화 " + result.data+ " 가 잘 삭제됐습니다";
                         }else{
-                            showResult.innerText = "해당영화가 없습니다";
+                            showResult.innerText = "해당 영화가 없습니다";
                         }
                     }
                     break;
+                    case "delete_uname":
+                        url = "/admin/user/"+li.getElementsByTagName("input")[0].value;
+                        method = "DELETE";
+                        fn = function(result) {
+                            if(result.result === 1) {
+                                showResult.innerHTML = "선택한 회원 " + result.data+ " 가 잘 삭제됐습니다";
+                            }else{
+                                showResult.innerText = "해당 회원이 없습니다";
+                            }
+                        }
+                        break;
                 default:
                     // statements_def
                     console.log("default");

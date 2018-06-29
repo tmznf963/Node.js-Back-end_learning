@@ -45,12 +45,6 @@
             margin-bottom: 12px;
         }
 
-        .showWrap button {
-            width: 120px;
-            height: 30px;
-            margin-top: 20px;
-        }
-
         .showResult {
             margin-top: 30px;
         }
@@ -100,13 +94,13 @@
     <section class="showWrap">
         <ul>
             <li class="get_all">
-                <button>모든영화보기</button>
+                <button type="button" class="btn btn-outline-primary">모든영화보기</button>
                 <section class="showResult"></section>
             </li>
 
             <li class="get_id">
-                <input type="text" name="keyword">
-                <button>Keyword 검색</button>
+              <p><input type="text" class="form-control" name="keyword" placeholder="ex) 사랑"></p>
+              <p><button type="button" class="btn btn-outline-success">Keyword 검색</button></p>
                 <section class="showResult"></section>
             </li>
             <!-- <li calss ="get_id">

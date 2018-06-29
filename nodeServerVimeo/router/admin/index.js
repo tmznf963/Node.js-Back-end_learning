@@ -22,8 +22,24 @@ router.get("/mng",function(req,res){
 // 1. /admin GET
 router.get('/',function(req,res){
     var responseData ={};
-
     var query = connection.query('select movie_title,code from movie2',function(err,rows){
+      if(err) throw err;
+      if(rows.length){//1이상 일 경우
+        //console.log(rows);
+        responseData.result = 1;
+        responseData.data = rows;// 배열형태
+      }else{
+        responseData.result = 0;
+      }
+      res.json(responseData);
+    });
+});
+
+// users 회원
+router.get('/user',function(req,res){
+    var responseData ={};
+    console.log("users");
+    var query = connection.query('select uname from users where uname NOT IN("admin")',function(err,rows){
       if(err) throw err;
       if(rows.length){//1이상 일 경우
         //console.log(rows);
@@ -56,27 +72,6 @@ router.post('/', function(req,res){
 
 })
 
-// 3. /admin/:keyword , GET
-router.get('/:keyword', function(req,res) {
-	var keyword = req.params.keyword; //keyword == 사랑
-  //console.log("keyword : ",keyword);
-	var responseData = {};
-
-  	var query = connection.query('select m.movie_title,m.point,m.code from movie2 m inner join keyword k on m.code = k.code where k.val like ?', ["%"+keyword+"%"], function(err, rows) {
-    //select m.movie_title from movie2 m inner join keyword k on m.code = k.code where k.val like '%사랑%';
-    //select code from keyword where val like ?
-    //console.log(rows);
-		if(err) throw err;
-		if(rows[0]) {
-			responseData.result = 1;
-			responseData.data = rows;
-		} else {
-			responseData.result = 0;
-		}
-		res.json(responseData)
-	})
-})
-
 // 4. /admin/:movie_title , DELETE
 router.delete('/:movie_title', function(req,res) {
 	var movie_title = req.params.movie_title;
@@ -95,6 +90,30 @@ router.delete('/:movie_title', function(req,res) {
 		res.json(responseData)
 	})
 })
+
+// 5. /admin/:uname , DELETE
+router.delete('/user/:uname', function(req,res) {
+	var uname = req.params.uname;
+  if(uname == "admin"){
+    uname = "";
+  }
+
+	var responseData = {};
+
+	var query = connection.query('delete from users where uname =?', [uname], function(err, rows) {
+		if(err) throw err;
+
+		if(rows.affectedRows > 0) {
+			responseData.result = 1;
+			responseData.data = uname;
+		} else {
+			responseData.result = 0;
+		}
+		res.json(responseData)
+	})
+})
+
+
 
 
 module.exports = router;
