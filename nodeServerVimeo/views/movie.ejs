@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>movie list</title>
+        <title>Movie Recommendation</title>
         <style>
         ul,li,section,div {padding: 0;margin: 0}
         li {
@@ -17,29 +17,34 @@
             font-family: monospace;
             font-weight: 100;
         }
-
+        .form-control {
+          border-radius: 65px !important;
+        }
 
         // movie area
         .showWrap {
-            width: 2000px;
-            margin: 60px auto;
+          text-align: center;
+            margin-left: auto;
+            margin-right: auto;
             overflow-y: auto;
         }
 
         .showWrap > ul {
             overflow: auto;
-            height: 700px;
-            margin: 0px auto;
-            background-color: #f3f2f2;
+            height: 720px;
+            margin-bottom: 0px;
+            background-color: #1f1f1f;
         }
 
         .showWrap > ul > li {
             padding: 50px;
-            width: 400px;
+            width: 50%;
             float: left;
-            border-right: 1px solid #e6dada;
-            height: 500px;
+            text-align: center;
+            border-right: 1px solid white;
+            height: 12450px;
         }
+
 
         .showWrap form > div {
             margin-bottom: 12px;
@@ -47,23 +52,52 @@
 
         .showResult {
             margin-top: 30px;
+            color: white;
         }
 
         .showResult li {
             margin-bottom: 16px;
         }
-
-        .showMovieResult {
-            margin-top: 30px;
+        #back{
+          background-color: #191919;
+          color: white;
         }
-
-        .showMovieResult li {
-            margin-bottom: 16px;
+        footer{
+          color: white;
+          background-color: #191919;
+        }
+        .light,.light-100{
+          color: white;
+          background-color: white;
+        }
+        h1{
+          margin-bottom: 0px;
+          height: 50px;
+        }
+        body{
+          background-color: red;
+        }
+        #backdiv{
+          background-color: #292E33;
+          width: 100%;
+          height: 50px;
+        }
+        #exampleModalLabel{
+          color: white;
+          text-align: center;
+          margin-top: 10px;
+          font-weight: 900;
+        }
+        #mt{
+          font-size: 1.7em;
+          font-weight: 900;
+        }
+        #mybtn{
+          text-align: center;
         }
         </style>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <link href="style.css" rel="stylesheet">
-        <!-- <link rel="stylesheet" href="/css/ui.css"> -->
+
 
     </head>
     <body>
@@ -89,7 +123,8 @@
       </div>
     </nav>
 
-    <h1>MovieRecommendation</h1>
+    <div id="back"><h1 style="margin-bottom:0px;">MovieRecommendation</h1></div>
+    <!-- Button trigger modal -->
 
     <section class="showWrap">
         <ul>
@@ -103,14 +138,134 @@
               <p><button type="button" class="btn btn-outline-success">Keyword 검색</button></p>
                 <section class="showResult"></section>
             </li>
-            <!-- <li calss ="get_id">
-              <section class="showMovieResult"></section>
-            </li> -->
         </ul>
-    </section>
+      </section>
+
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+
+      <!-- Button trigger modal -->
+      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Launch demo modal
+      </button> -->
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="backdiv"><h5 class="modal-title" id="exampleModalLabel">내가 선택한 영화 정보</h5></div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td colspan="6"scope="col" id="mt"></td>
+                    <td rowspan="5"><img id="img" src="" alt=""></td>
+
+                  </tr>
+                  <tr>
+                    <th>평점</th>
+                    <td id="mp"></td>
+                  </tr>
+                  <tr>
+                    <th>장르</th>
+                    <td id="mgr"></td>
+                  </tr>
+                  <tr>
+                    <th>상영시간</th>
+                    <td id="mtm"></td>
+                  </tr>
+                  <tr>
+                    <th>개봉일</th>
+                    <td id="mr"></td>
+                  </tr>
+                  <tr>
+                    <th>감독</th>
+                    <td id="md"></td>
+                  </tr>
+                  <tr>
+                    <th>배우</th>
+                    <td id="ma"></td>
+                  </tr>
+                  <tr>
+                    <th>등급</th>
+                    <td id="mgd"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" id="mybtn">
+                      <a type='button' class='btn btn-danger' href='http://www.cgv.co.kr/movies/' target='_blank'>예매하러 가기</a>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a type='button' id='navermovie' class='btn btn-success' href='' target='_blank'>자세히 보기</a><!--https://movie.naver.com/-->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <!--- Footer -->
+      <footer>
+      	<div class="container-fluid padding">
+      		<div class="row text-center">
+      			<div class="col-md-4">
+      				<!-- <img src ="img/w3newbie.png"> -->
+      				<hr class="light">
+      				<p>한국성서대학교</p>
+      				<p>www.bible.ac.kr</p>
+      				<p>02-950-5401</p>
+      				<p>서울특별시 노원구 동일로 214길 32</p>
+      			</div>
+      			<div class="col-md-4">
+      				<hr class="light">
+      				<h5>Maker</h5>
+      				<hr class="light">
+      				<p>Kim Min Ho</p>
+      				<p>Lee Jin Woong</p>
+      				<p>Lee Jae Geun</p>
+      			</div>
+      			<div class="col-md-4">
+      				<hr class="light">
+      				<h5>E-mail</h5>
+      				<hr class="light">
+      				<p>qhfhd963@naver.com</p>
+      				<p>alrha486@naver.com</p>
+      				<p>ljg95924@gmail.com</p>
+      			</div>
+      			<div class="col-12">
+      				<hr class="light-100">
+      				<h5>&copy;컴퓨터소프트웨어</h5>
+      			</div>
+      		</div>
+      	</div>
+      </footer>
+      <!-- JS code -->
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js">
+      </script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js">
+      </script>
+
+
+
+
+
 
 
     <script>
+    var real_re;
         document.querySelector('.showWrap').addEventListener('click', function(e) {
             let url, method, data, fn;
             const target = e.target;
@@ -124,12 +279,16 @@
                     url = "/movie";
                     method = "GET";
                     fn = function(result) {
-                        if(result.result === 1) {
+                      real_re = result.data;
+                                        if(result.result === 1) {
                             let titles = result.data.reduce(function(pre,next){
-                                pre += "<li><a href='https://movie.naver.com/movie/bi/mi/basic.nhn?code="+(next.code)+"'>" + next.movie_title + "</a></li>"
+                                pre += "<li><a data-toggle='modal' data-target='#myModal'><img src='"+next.images+"' alt='"+next.movie_title+"' onclick='myresult("+next.code+")'></a></li>"
                                 return pre;
-                            },"");
+                                return pre;
+                            },"");//onclick='myresult("+JSON.stringify(result.data)+")'
                             showResult.innerHTML = "<ul>" + titles + "</ul>";
+                            // pre += "<li><button type='button' onclick='myresult("+next.code+")' value='"+next.code+"' id='"+cnt+"'class='btn btn-success' data-toggle='modal' data-target='#myModal'>" + next.movie_title + "</button></li>"
+                            // cnt++;
                         } else {
                          showResult.innerHTML = "list not found";
                         }
@@ -140,12 +299,14 @@
                     code = "";
                     method = "GET";
                     fn = function(result) {
+                      real_re = result.data;
                         if(result.result === 1) {
                           //<a href="https://www.w3schools.com">Visit W3Schools.com!</a>
                           //'<span class="markerbg marker_' + (index+1) + '"></span>'
                           //<input type = button value=next.movie_title onclick="">
+                          // pre += "<li><a type='button' class='btn btn-warning' href='https://movie.naver.com/movie/bi/mi/basic.nhn?code="+(next.code)+"' target='_blank'>" + next.movie_title + "</a></li>"
                           let titles = result.data.reduce(function(pre,next){
-                              pre += "<li><a href='https://movie.naver.com/movie/bi/mi/basic.nhn?code="+(next.code)+"'>" + next.movie_title + "</a></li>"
+                              pre += "<li><a data-toggle='modal' data-target='#myModal'><img src='"+next.images+"' alt='"+next.movie_title+"' onclick='myresult("+next.code+")'></a></li>"
                               return pre;
                           },"");
                           showResult.innerHTML = "<ul>" + titles + "</ul>";//ul
@@ -165,6 +326,7 @@
         function sendAjax(url, method, data, fn){
             const xhr = new XMLHttpRequest();
             xhr.open(method, url);
+
             if(data) {
                 data = JSON.stringify(data);
                 xhr.setRequestHeader('Content-Type', "application/json");
@@ -174,9 +336,29 @@
             xhr.send(data);
             xhr.addEventListener('load', function() {
                 const result = JSON.parse(xhr.responseText);
-                fn(result);
+                        fn(result);
             });
         }
+        function myresult(mydata) {
+          for(var i = 0 ; i < real_re.length ; i++ ){
+            if(mydata == real_re[i].code){
+              document.querySelector("#mt").innerHTML = real_re[i].movie_title;
+              document.querySelector("#mp").innerHTML = real_re[i].point+" 점";
+              document.querySelector("#mgr").innerHTML = real_re[i].Genres;
+              document.querySelector("#mtm").innerHTML = real_re[i].Times+" 분";
+              document.querySelector("#mr").innerHTML = real_re[i].Releases;
+              document.querySelector("#md").innerHTML = real_re[i].Directors;
+              document.querySelector("#ma").innerHTML = real_re[i].Actors;
+              document.querySelector("#mgd").innerHTML = real_re[i].Grades;
+              document.getElementById("img").src = real_re[i].images;
+              document.getElementById("navermovie").href = 'https://movie.naver.com/movie/bi/mi/basic.nhn?code='+real_re[i].code;
+              //movie_title,code,point,Genres,Times,Releases,Directors,Actors,Grades,images
+            }
+          }
+          console.log(mydata);
+
+      	}
+
     </script>
 
     </body>
